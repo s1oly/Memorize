@@ -9,11 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     // Emojis Array has @State in front as we need to modify it when each one of the buttons is pressed
-    @State var emojis :[String] = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p"]
+     @State var emojis = ["✈️","🚘","🛬","🗼","🚙","🛻","🚐","🛺","🚔","🚍","🛰️","🛩️","🚤","🚁","🛶","🚠"]
     //The following three arrays are the same size as emojis and correspond to each type of card
-    var vehiclemojis =  ["✈️","🚘","🛬","🗼","🚙","🛻","🚐","🛺","🚔","🚍","🛰️","🛩️","🚤","🚁","🛶","🚠"]
-    var peopleemojis = ["😀","😃","😄","😁","😆","🥹","😅","😂", "🤣", "🥲","☺️","😇","🙂","🙃","😉","😌"]
-    var flagemojis = ["🏳️","🏴","🏴‍☠️","🏁","🚩","🏳️‍🌈","🏳️‍⚧️","🇺🇳","🇦🇫","🇦🇽","🇦🇱","🇩🇿","🇦🇸","🇦🇩","🇦🇴","🇦🇮"]
+ 
     //
     @State var emojiCount = 8
     var body: some View{
@@ -29,11 +27,7 @@ struct ContentView: View {
             }
             Spacer()
             HStack{
-                vehicle
-                Spacer()
-                faces
-                Spacer()
-                flags
+                
                 
             }
             .padding(.horizontal)
@@ -43,41 +37,6 @@ struct ContentView: View {
         .foregroundColor(Color.red)
     }
 
-    var vehicle : some View{
-        VStack{
-            Button{
-                emojis.replace(emojis[0..<emojis.count], with: vehiclemojis.shuffled())
-                emojiCount = Int.random(in: 4...15)
-            } label: {
-                Image(systemName: "car.circle")
-            }
-            Text("Vehicles").font(.footnote)
-        }
-    }
-    
-    var faces : some View{
-        VStack{
-            Button{
-                emojis.replace(emojis[0..<emojis.count], with: peopleemojis.shuffled())
-                emojiCount = Int.random(in: 4...15)
-            } label: {
-                Image(systemName: "person.circle")
-            }
-            Text("Faces").font(.footnote)
-        }
-    }
-    
-    var flags : some View{
-        VStack{
-            Button{
-                emojis.replace(emojis[0..<emojis.count], with: flagemojis.shuffled())
-                emojiCount = Int.random(in: 4...15)
-            } label: {
-                Image(systemName: "flag.circle")
-            }
-            Text("Flags").font(.footnote)
-        }
-    }
 }
     
     
