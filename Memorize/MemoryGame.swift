@@ -7,26 +7,32 @@
 
 import Foundation
 
-struct MemoryGame<CardContent>{
+struct MemoryGame<CardContent> {
     private(set) var cards: Array<Card>
     
-    func choose( _ card : Card) {
-        
-    }
-    
-    init(numPairsofCards: Int , createCardContent: (Int) -> CardContent){
-        cards = Array<Card>()
-        for pairIndex in 0..<numPairsofCards{
-            let content = createCardContent(pairIndex)
-            cards.append(Card( content: <#T##CardContent#>))
-            cards.append(Card( content: <#T##CardContent#>))
+    init(numofPairsofCards: Int , cardContentFactory: (Int) -> CardContent){
+        cards = []
+        for pairIndex in 0..<max(2,numofPairsofCards){
+            let content = cardContentFactory(pairIndex)
+            cards.append(Card( content: content))
+            cards.append(Card( content: content))
 
         }
     }
     
-    struct Card{
-        var isFacedUp : Bool = false
+    func choose( _ card : Card) {
+    
+    }
+    
+    mutating func shuffle(){
+        cards.shuffle()
+    }
+    
+    
+    struct Card {
+        var isFacedUp : Bool = true
         var isMatched : Bool = false
         var content : CardContent
+       
     }
 }
