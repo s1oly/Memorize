@@ -12,13 +12,26 @@ struct EmojiMemoryGameView: View {
 
     var body: some View{
         VStack{
+            HStack{
+                Text(viewModel.selectedTheme().Name)
+                    .font(.title)
+            }
             ScrollView{
                 cards
                     .animation(.default, value: viewModel.cards)
             }
-            Button("Shuffle"){
-                viewModel.shuffle()
+            HStack{
+                Button("New Game"){
+                    viewModel.newGame()
+                }
+                .font(.title3)
+                Spacer()
+                Button("Shuffle"){
+                    viewModel.shuffle()
+                }
+                .font(.title3)
             }
+           
         }
         .padding()
     }
@@ -34,19 +47,32 @@ struct EmojiMemoryGameView: View {
                     }
             }
         }
-        .foregroundColor(.blue)
+        .foregroundColor(color)
     }
+    
+    var color : Color{
+        switch viewModel.selectedTheme().Color{
+        case "Red":
+            return .red
+        case "Blue":
+            return .blue
+        case "Green":
+            return .green
+        case "Yellow":
+            return .yellow
+        case "Orange":
+            return .orange
+        case "Purple":
+            return .purple
+        default:
+            return .pink
+        }
+    }
+    
 
 }
+
     
-    
-
-
-
-
-
-
-
 struct CardView: View{
     var card : MemoryGame<String>.Card
     
@@ -73,13 +99,13 @@ struct CardView: View{
             .opacity(card.isFacedUp || !card.isMatched ? 1 : 0)
         }
     }
-
-
+        
+    
 
 
 struct EmojiMemoryGameView_Previews: PreviewProvider {
     static var previews: some View {
-       EmojiMemoryGameView(viewModel: EmojiMemoryGame())
+       EmojiMemoryGameView(viewModel: EmojiMemoryGame(Theme()))
     }
 }
 

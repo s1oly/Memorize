@@ -49,7 +49,14 @@ struct MemoryGame<CardContent> where CardContent : Equatable {
         cards.shuffle()
     }
     
+    mutating func reset(){
+        for i in 0..<cards.count{
+            cards[i].isFacedUp = false
+            cards[i].isMatched = false
+        }
+    }
     
+ 
     struct Card : Equatable, Identifiable, CustomDebugStringConvertible {
         var isFacedUp : Bool = false
         var isMatched : Bool = false
