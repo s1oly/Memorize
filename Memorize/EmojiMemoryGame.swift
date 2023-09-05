@@ -10,16 +10,15 @@ import SwiftUI
 class EmojiMemoryGame : ObservableObject {
     
     @Published private var model : MemoryGame<String>
-    @Published private var themes : Theme
+    @Published private var themes : Themes.Theme
     
-    init (_ theme : Theme){
-        themes = theme
-        let selectedTheme = theme.randomTheme()
-        model = EmojiMemoryGame.createMemoryGame(selectedTheme)
+    init (_ theme : Themes){
+        model = EmojiMemoryGame.createMemoryGame(theme.randomTheme())
+        themes = theme.randomTheme()
     }
     
    
-    private static func createMemoryGame(_ theme : Theme.indvThemes) -> MemoryGame<String>{
+    private static func createMemoryGame(_ theme : Themes.Theme) -> MemoryGame<String>{
         return MemoryGame(numofPairsofCards: theme.numOfPairs){ pairIndex in
             if theme.Emojis.indices.contains(pairIndex){
                 return theme.Emojis[pairIndex]
@@ -35,8 +34,29 @@ class EmojiMemoryGame : ObservableObject {
         return model.cards
     }
     
-    var themesList : Array<Theme.indvThemes>{
-        return themes.Themes
+    
+    var themeColor : Color{
+        switch themes.Color{
+            case "Red":
+                return .red
+            case "Blue":
+                return .blue
+            case "Green":
+                return .green
+            case "Yellow":
+                return .yellow
+            case "Orange":
+                return .orange
+            case "Purple":
+                return .purple
+            default:
+                return .pink
+            }
+        
+    }
+    
+    var themeName : String {
+        themes.Name
     }
     
     
@@ -44,10 +64,6 @@ class EmojiMemoryGame : ObservableObject {
     
     func shuffle(){
         model.shuffle()
-    }
-    
-    func selectedTheme() -> Theme.indvThemes{
-        themes.randomTheme()
     }
     
     func resetCards(){
@@ -58,8 +74,10 @@ class EmojiMemoryGame : ObservableObject {
         model.choose(card)
     }
     
-    func newGame(){
-        model = EmojiMemoryGame.createMemoryGame(selectedTheme())
+    func newGame( _ theme : Themes){
+        themes = theme.randomTheme()
+        model = EmojiMemoryGame.createMemoryGame(themes)
+        
     }
     
     

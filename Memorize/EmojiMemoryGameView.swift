@@ -13,7 +13,7 @@ struct EmojiMemoryGameView: View {
     var body: some View{
         VStack{
             HStack{
-                Text(viewModel.selectedTheme().Name)
+                Text(viewModel.themeName)
                     .font(.title)
             }
             ScrollView{
@@ -22,7 +22,7 @@ struct EmojiMemoryGameView: View {
             }
             HStack{
                 Button("New Game"){
-                    viewModel.newGame()
+                    viewModel.newGame(Themes())
                 }
                 .font(.title3)
                 Spacer()
@@ -47,30 +47,12 @@ struct EmojiMemoryGameView: View {
                     }
             }
         }
-        .foregroundColor(color)
+        .foregroundColor(viewModel.themeColor)
     }
     
-    var color : Color{
-        switch viewModel.selectedTheme().Color{
-        case "Red":
-            return .red
-        case "Blue":
-            return .blue
-        case "Green":
-            return .green
-        case "Yellow":
-            return .yellow
-        case "Orange":
-            return .orange
-        case "Purple":
-            return .purple
-        default:
-            return .pink
-        }
-    }
-    
-
 }
+
+
 
     
 struct CardView: View{
@@ -105,7 +87,7 @@ struct CardView: View{
 
 struct EmojiMemoryGameView_Previews: PreviewProvider {
     static var previews: some View {
-       EmojiMemoryGameView(viewModel: EmojiMemoryGame(Theme()))
+       EmojiMemoryGameView(viewModel: EmojiMemoryGame(Themes()))
     }
 }
 
