@@ -32,6 +32,7 @@ struct EmojiMemoryGameView: View {
                 .font(.title3)
             }
            
+            
         }
         .padding()
     }
