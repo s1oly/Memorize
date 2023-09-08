@@ -9,12 +9,17 @@ import SwiftUI
 
 struct EmojiMemoryGameView: View {
   @ObservedObject var viewModel : EmojiMemoryGame
-
+    
     var body: some View{
         VStack{
             HStack{
                 Text(viewModel.themeName)
-                    .font(.title)
+                    .font(.largeTitle)
+            }
+            HStack(spacing: 20){
+                Text("Score")
+                    .font(.title3)
+                Text(String(viewModel.gameScore))
             }
             ScrollView{
                 cards
@@ -23,11 +28,6 @@ struct EmojiMemoryGameView: View {
             HStack{
                 Button("New Game"){
                     viewModel.newGame(Themes())
-                }
-                .font(.title3)
-                Spacer()
-                Button("Shuffle"){
-                    viewModel.shuffle()
                 }
                 .font(.title3)
             }
@@ -51,10 +51,8 @@ struct EmojiMemoryGameView: View {
         .foregroundColor(viewModel.themeColor)
     }
     
+    
 }
-
-
-
     
 struct CardView: View{
     var card : MemoryGame<String>.Card
