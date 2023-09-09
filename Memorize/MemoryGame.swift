@@ -44,7 +44,8 @@ struct MemoryGame<CardContent> where CardContent : Equatable {
                         score += 2
                     }
                     else{
-                        if cards[potentialMatchedIndex].isFacedUp{
+                        cards[potentialMatchedIndex].flipCount += 1
+                        if (cards[potentialMatchedIndex].isFacedUp && cards[potentialMatchedIndex].flipCount>1){
                             score = score - 1
                         }
                     }
@@ -72,6 +73,7 @@ struct MemoryGame<CardContent> where CardContent : Equatable {
         var isFacedUp : Bool = false
         var isMatched : Bool = false
         var content : CardContent
+        var flipCount : Int = 0
         var id: String
         var debugDescription: String{
             "\(id): \(content) : \(isFacedUp ? "up" : "down") : \(isMatched ? "matched" : "")"
