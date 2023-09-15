@@ -38,14 +38,15 @@ struct MemoryGame<CardContent> where CardContent : Equatable {
         if let chosenIndex = cards.firstIndex(where: {$0.id == card.id}){
             if !cards[chosenIndex].isFacedUp && !cards[chosenIndex].isMatched{
                 if let potentialMatchedIndex = indexOfOneFacedUpCard{
+                    cards[potentialMatchedIndex].flipCount += 1
+                    cards[chosenIndex].flipCount += 1
                     if cards[chosenIndex].content == cards[potentialMatchedIndex].content{
                         cards[chosenIndex].isMatched = true
                         cards[potentialMatchedIndex].isMatched = true
                         score += 2
                     }
                     else{
-                        cards[potentialMatchedIndex].flipCount += 1
-                        if (cards[potentialMatchedIndex].isFacedUp && cards[potentialMatchedIndex].flipCount>1){
+                        if (cards[potentialMatchedIndex].flipCount>1 || cards[chosenIndex].flipCount>1){
                             score = score - 1
                         }
                     }
