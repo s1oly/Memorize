@@ -11,6 +11,7 @@ struct EmojiMemoryGameView: View {
     typealias Card = MemoryGame<String>.Card
     @ObservedObject var viewModel : EmojiMemoryGame
     private let aspectRatioOfCards : CGFloat = 2/3
+    
 
     var body: some View{
         VStack{
