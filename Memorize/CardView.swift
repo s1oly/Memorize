@@ -17,23 +17,26 @@ struct CardView: View{
     }
     
     var body: some View{
-        Pie(endAngle: .degrees(240))
-            .opacity(Constants.Pie.opacity)
-            .overlay(
-            Text(card.content)
-                .font(.system(size:Constants.FontSize.largest))
-                .minimumScaleFactor(Constants.FontSize.scaleFactor)
-                .multilineTextAlignment(.center)
-                .aspectRatio(1, contentMode: .fit)
-                .padding(Constants.Pie.inset)
-                .rotationEffect(.degrees(card.isMatched ? 360 : 0))
-                .animation(.spin(duration : 1), value: card.isMatched)
-                
-            )
-            .padding(Constants.inset)
-            .cardify(isFacedup: card.isFacedUp)
-            .opacity(card.isFacedUp || !card.isMatched ? 1 : 0)
+        TimelineView(.animation){ timeline in
+            Pie(endAngle: .degrees(card.bonusPercentRemaining * 360 - 120))
+                .opacity(Constants.Pie.opacity)
+                .overlay(
+                    Text(card.content)
+                        .font(.system(size:Constants.FontSize.largest))
+                        .minimumScaleFactor(Constants.FontSize.scaleFactor)
+                        .multilineTextAlignment(.center)
+                        .aspectRatio(1, contentMode: .fit)
+                        .padding(Constants.Pie.inset)
+                        .rotationEffect(.degrees(card.isMatched ? 360 : 0))
+                        .animation(.spin(duration : 1), value: card.isMatched)
+                    
+                )
+                .padding(Constants.inset)
+                .cardify(isFacedup: card.isFacedUp)
+                .opacity(card.isFacedUp || !card.isMatched ? 1 : 0)
         }
+        
+    }
     
     private struct Constants{
         static let CornerRadius:CGFloat = 12
@@ -65,5 +68,6 @@ struct CardView_Previews: PreviewProvider {
         CardView(Card(content: "Hello", id: "test"))
             .padding()
             .foregroundColor(.blue)
+        
     }
 }
