@@ -43,7 +43,7 @@ struct MemoryGame<CardContent> where CardContent : Equatable {
                     if cards[chosenIndex].content == cards[potentialMatchedIndex].content{
                         cards[chosenIndex].isMatched = true
                         cards[potentialMatchedIndex].isMatched = true
-                        score = score + 2 + cards[chosenIndex].bonus + cards[potentialMatchedIndex].bonus
+                        score = score + 2 + cards[chosenIndex].bonus
                     }
                     else{
                         if (cards[potentialMatchedIndex].flipCount>1 || cards[chosenIndex].flipCount>1){
@@ -114,7 +114,7 @@ struct MemoryGame<CardContent> where CardContent : Equatable {
         
         // percentage of the bonus time remaining
         var bonusPercentRemaining: Double {
-            bonusTimeLimit > 0 ? max(0, (bonusTimeLimit - faceUpTime)/bonusTimeLimit) : 0
+            bonusTimeLimit > 0 ? max(0, (bonusTimeLimit - faceUpTime))/bonusTimeLimit : 0
         }
         
         // how long this card has ever been face up and unmatched during its lifetime

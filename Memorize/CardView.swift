@@ -18,24 +18,29 @@ struct CardView: View{
     
     var body: some View{
         TimelineView(.animation){ timeline in
-            Pie(endAngle: .degrees(card.bonusPercentRemaining * 360 - 120))
-                .opacity(Constants.Pie.opacity)
-                .overlay(
-                    Text(card.content)
-                        .font(.system(size:Constants.FontSize.largest))
-                        .minimumScaleFactor(Constants.FontSize.scaleFactor)
-                        .multilineTextAlignment(.center)
-                        .aspectRatio(1, contentMode: .fit)
-                        .padding(Constants.Pie.inset)
-                        .rotationEffect(.degrees(card.isMatched ? 360 : 0))
-                        .animation(.spin(duration : 1), value: card.isMatched)
-                    
-                )
-                .padding(Constants.inset)
-                .cardify(isFacedup: card.isFacedUp)
-                .opacity(card.isFacedUp || !card.isMatched ? 1 : 0)
+            if card.isFacedUp || !card.isMatched{
+                Pie(endAngle: .degrees(card.bonusPercentRemaining * 360 - 120))
+                    .opacity(Constants.Pie.opacity)
+                    .overlay(cardContent.padding(Constants.Pie.inset))
+                    .cardify(isFacedup: card.isFacedUp)
+                    .transition(.scale)
+            }
+            else{
+                Color.clear
+            }
         }
         
+    }
+    
+    var cardContent : some View{
+        Text(card.content)
+            .font(.system(size:Constants.FontSize.largest))
+            .minimumScaleFactor(Constants.FontSize.scaleFactor)
+            .multilineTextAlignment(.center)
+            .aspectRatio(1, contentMode: .fit)
+            .padding(Constants.Pie.inset)
+            .rotationEffect(.degrees(card.isMatched ? 360 : 0))
+            .animation(.spin(duration : 1), value: card.isMatched)
     }
     
     private struct Constants{
